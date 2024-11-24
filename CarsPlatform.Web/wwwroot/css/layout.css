@@ -1,0 +1,24 @@
+﻿.nav-link:hover {
+    border-bottom: 1px solid white;
+    border-radius: 0;
+}
+
+.footer-wrapper {
+    padding: 0 26px;
+}
+
+.socials-list {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin: 0;
+}
+
+.socials-list li a {
+    color: white;
+    padding: 8px 0;
+}
+
+    .socials-list li a:hover {
+        border-bottom: 1px solid white;
+    }

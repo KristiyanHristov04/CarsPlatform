@@ -1,0 +1,194 @@
+﻿@using CarsPlatform.Application.Models.ViewModels
+@model CarPageViewModel
+
+@{
+    ViewData["Title"] = "All Cars";
+    int lastPage = (int)Math.Ceiling(Model.TotalCars / (decimal)Model.CarsPerPage);
+}
+
+<h1 class="text-center">All Cars</h1>
+
+<div class="container-fluid">
+    <form asp-controller="Cars" asp-action="Index">
+        <div class="row" style="row-gap: 30px;">
+            <div class="input-container col-md-3">
+                <label>Search by make:</label>
+                <select id="select-make-menu" asp-for="@Model.Make" class="form-select">
+                    <option value="@null">None</option>
+                    @foreach (string make in Model.Makes)
+                    {
+                        <option value="@make">@make</option>
+                    }
+                </select>
+            </div>
+
+            <div class="input-container col-md-3">
+                <label>Search by model:</label>
+                <select id="select-model-menu" asp-for="@Model.Model" data-previous-model="@Model.Model" class="form-select" disabled>
+                    <option value="@null">None</option>
+                </select>
+            </div>
+
+            <div class="input-container col-md-3">
+                <label>Search by colour:</label>
+                <select asp-for="@Model.Colour" class="form-select">
+                    <option value="@null">None</option>
+                    @foreach (string colour in Model.Colours)
+                    {
+                        <option value="@colour">@colour</option>
+                    }
+                </select>
+            </div>
+
+            <div class="input-container col-md-3">
+                <label>Sort by year:</label>
+                <input type="number" asp-for="SearchByYear" class="form-control" />
+            </div>
+
+            <div class="input-container col-md-3">
+                <label>Sort by price:</label>
+                <select asp-for="@Model.Price" class="form-select">
+                    <option value="@null">None</option>
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                </select>
+            </div>
+
+            <div class="input-container col-md-3">
+                <label>Sort by fuel type:</label>
+                <select asp-for="@Model.FuelType" class="form-select">
+                    <option value="@null">None</option>
+                    @foreach (string fuelType in Model.FuelTypes)
+                    {
+                        <option value="@fuelType">@fuelType</option>
+                    }
+                </select>
+            </div>
+
+            <div class="input-container col-md-3">
+                <label>Sort by transmission:</label>
+                <select asp-for="@Model.Transmission" class="form-select">
+                    <option value="@null">None</option>
+                    @foreach (string transmission in Model.Transmissions)
+                    {
+                        <option value="@transmission">@transmission</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-success">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                <a asp-controller="Cars" asp-action="Index" class="btn btn-primary">Clear <i class="fa-solid fa-broom"></i></a>
+            </div>
+        </div>
+    </form>
+    <table class="table table-striped table-hover mt-5">
+        <thead>
+            <tr class="table-default">
+                <th scope="col">#</th>
+                <th scope="col">Make</th>
+                <th scope="col">Model</th>
+                <th scope="col">Colour</th>
+                <th scope="col">Year</th>
+                <th scope="col">Price</th>
+                <th scope="col">Fuel</th>
+                <th scope="col">Transmission</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int currentCarNumber = ((Model.CurrentPage - 1) * Model.CarsPerPage) + 1;
+                foreach (CarViewModel car in Model.Cars)
+                {
+                    <tr class="table-default">
+                        <td>@currentCarNumber</td>
+                        <td>@car.Make</td>
+                        <td>@car.Model</td>
+                        <td>@car.Colour</td>
+                        <td>@car.Year</td>
+                        <td>@car.Price</td>
+                        <td>@car.Fuel</td>
+                        <td>@car.Transmission</td>
+                    </tr>
+                    currentCarNumber++;
+                }
+            }
+        </tbody>
+    </table>
+    @if (Model.Cars.Count() == 0)
+    {
+        <div class="alert alert-primary" role="alert">
+            <i class="fa-solid fa-triangle-exclamation"></i> No cars match your search criteria. Please try adjusting the filters or resetting them to explore more options.
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a asp-controller="Cars"
+               asp-action="Index"
+               asp-route-make="@Model.Make"
+               asp-route-model="@Model.Model"
+               asp-route-colour="@Model.Colour"
+               asp-route-searchByYear="@Model.SearchByYear"
+               asp-route-price="@Model.Price"
+               asp-route-fuelType="@Model.FuelType"
+               asp-route-transmission="@Model.Transmission"
+               asp-route-currentPage="1"
+               class="btn btn-primary">
+                &lt;&lt;
+            </a>
+
+            <a asp-controller="Cars"
+               asp-action="Index"
+               asp-route-make="@Model.Make"
+               asp-route-model="@Model.Model"
+               asp-route-colour="@Model.Colour"
+               asp-route-searchByYear="@Model.SearchByYear"
+               asp-route-price="@Model.Price"
+               asp-route-fuelType="@Model.FuelType"
+               asp-route-transmission="@Model.Transmission"
+               asp-route-currentPage="@(Model.CurrentPage == 1 ? Model.CurrentPage : Model.CurrentPage - 1)"
+               class="btn btn-primary">
+                &lt;
+            </a>
+        </div>
+
+        <div>
+            <p class="m-0">Page: @Model.CurrentPage / @(lastPage != 0 ? lastPage : 1)</p>
+        </div>
+
+        <div>
+            <a asp-controller="Cars"
+               asp-action="Index"
+               asp-route-make="@Model.Make"
+               asp-route-model="@Model.Model"
+               asp-route-colour="@Model.Colour"
+               asp-route-searchByYear="@Model.SearchByYear"
+               asp-route-price="@Model.Price"
+               asp-route-fuelType="@Model.FuelType"
+               asp-route-transmission="@Model.Transmission"
+               asp-route-currentPage="@(Model.CurrentPage + 1 > lastPage ? Model.CurrentPage : Model.CurrentPage + 1)"
+               class="btn btn-primary">
+                &gt;
+            </a>
+
+            <a asp-controller="Cars"
+               asp-action="Index"
+               asp-route-make="@Model.Make"
+               asp-route-model="@Model.Model"
+               asp-route-colour="@Model.Colour"
+               asp-route-searchByYear="@Model.SearchByYear"
+               asp-route-price="@Model.Price"
+               asp-route-fuelType="@Model.FuelType"
+               asp-route-transmission="@Model.Transmission"
+               asp-route-currentPage="@(lastPage != 0 ? lastPage : 1)"
+               class="btn btn-primary">
+                &gt; &gt;
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/fillModelsMenu.js"></script>
+}

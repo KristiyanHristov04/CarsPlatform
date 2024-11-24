@@ -1,0 +1,30 @@
+﻿@using CarsPlatform.Application.Models.ViewModels
+@model CarStatisticsViewModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To Cars Platform</h1>
+    <p>The place where you'll find your future car!</p>
+</div>
+
+<div>
+    <h3 class="text-center text-decoration-underline">Total cars: @Model.TotalCarsCount</h3>
+    <div class="row justify-content-center gap-4">
+        @foreach (KeyValuePair<string, int> make in Model.Makes)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@make.Key</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <span class="badge bg-info" style="font-size: 12px; vertical-align: middle;">@make.Value Cars</span>
+                        <span class="badge bg-info" style="font-size: 12px; vertical-align: middle;">@Model.Models[make.Key] Models</span>
+                    </h6>
+                    <a asp-controller="Cars" asp-action="Index" asp-route-make="@make.Key" class="card-link btn btn-success btn-sm">Take a look <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
