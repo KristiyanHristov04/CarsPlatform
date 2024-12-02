@@ -132,5 +132,29 @@ namespace CarsPlatform.Infrastructure.Services
         {
             return this.context.Transmissions.Select(c => c.TransmissionType).ToList();
         }
+
+        public CarViewModel? GetCarById(int id)
+        {
+            CarViewModel? carViewModel = this.context.Cars.Select(c => new CarViewModel()
+            {
+                Id = c.Id,
+                Make = c.Make.MakeName,
+                Model = c.Model.ModelName,
+                Colour = c.Colour.ColourName,
+                Year = c.ReleaseYear,
+                Price = c.Price,
+                Fuel = c.FuelType.FuelTypeName,
+                Transmission = c.Transmission.TransmissionType
+            }).FirstOrDefault(c => c.Id == id);
+
+            return carViewModel;
+        }
+
+        public void DeleteCarById(int id)
+        {
+            Car carToRemove = this.context.Cars.Find(id)!;
+            this.context.Cars.Remove(carToRemove);
+            this.context.SaveChanges();
+        }
     }
 }

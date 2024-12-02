@@ -93,6 +93,7 @@
                 <th scope="col">Price</th>
                 <th scope="col">Fuel</th>
                 <th scope="col">Transmission</th>
+                <th scope="col">Edit/Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -109,6 +110,10 @@
                         <td>@car.Price</td>
                         <td>@car.Fuel</td>
                         <td>@car.Transmission</td>
+                        <td>
+                            <a asp-controller="Cars" asp-action="Edit" asp-route-id="@car.Id" class="text-info"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a asp-controller="Cars" asp-action="Delete" asp-route-id="@car.Id" class="text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
                     </tr>
                     currentCarNumber++;
                 }

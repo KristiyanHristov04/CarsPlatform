@@ -10,5 +10,7 @@ namespace CarsPlatform.Application.Contracts
         public List<string> GetAllColours();
         public List<string> GetAllFuelTypes();
         public List<string> GetAllTransmissions();
+        public CarViewModel? GetCarById(int id);
+        public void DeleteCarById(int id);
     }
 }

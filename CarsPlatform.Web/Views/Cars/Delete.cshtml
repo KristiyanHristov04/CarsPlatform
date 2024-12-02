@@ -1,0 +1,43 @@
+﻿@using CarsPlatform.Application.Models.ViewModels
+@model CarViewModel
+
+@{
+    ViewData["Title"] = "Delete Car";
+}
+
+<h1 class="text-center">Are you sure you want to remove this car?</h1>
+
+<div class="container-fluid">
+    <form asp-controller="Cars" asp-action="Delete">
+        <div class="mb-3">
+            <label asp-for="@Model.Make" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Make" disabled>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Model" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Model" disabled>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Colour" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Colour" disabled>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Year" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Year" disabled>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Price" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Price" disabled>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Fuel" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Fuel" disabled>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Transmission" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Transmission" disabled>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-controller="Cars" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

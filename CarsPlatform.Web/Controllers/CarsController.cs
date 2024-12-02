@@ -24,5 +24,26 @@ namespace CarsPlatform.Web.Controllers
             carPageViewModel.Transmissions = this.carService.GetAllTransmissions();
             return View(carPageViewModel);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            CarViewModel? car = this.carService.GetCarById(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return View(car);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(CarViewModel carViewModel)
+        {
+            this.carService.DeleteCarById(carViewModel.Id);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
