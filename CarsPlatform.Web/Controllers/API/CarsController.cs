@@ -19,5 +19,11 @@ namespace CarsPlatform.Web.Controllers.API
         {
             return this.apiCarService.GetModels(make);
         }
+
+        [HttpGet("GetMakes")]
+        public Dictionary<string, int> GetMakes()
+        {
+            return this.apiCarService.GetMakes();
+        }
     }
 }

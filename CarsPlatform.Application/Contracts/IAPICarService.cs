@@ -3,5 +3,7 @@
     public interface IAPICarService
     {
         List<string> GetModels(string make);
+
+        Dictionary<string, int> GetMakes();
     }
 }

@@ -24,5 +24,20 @@ namespace CarsPlatform.Infrastructure.Services
                 .Select(m => m.ModelName)
                 .ToList();
         }
+
+        public Dictionary<string, int> GetMakes()
+        {
+            Dictionary<string, int> makes = this.context.Makes
+                .OrderByDescending(m => m.Cars.Count)
+                .Select(m => new
+                {
+                    m.MakeName,
+                    m.Cars.Count
+                })
+                .Take(6)
+                .ToDictionary(k => k.MakeName, v => v.Count);
+
+            return makes;
+        }
     }
 }
