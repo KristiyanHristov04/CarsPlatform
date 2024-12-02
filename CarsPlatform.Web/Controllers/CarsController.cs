@@ -27,6 +27,45 @@ namespace CarsPlatform.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            CarViewModel? car = this.carService.GetCarById(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            EditCarFormModel editCarFormModel = new EditCarFormModel();
+            editCarFormModel.Makes = this.carService.GetAllMakes();
+            editCarFormModel.Colours = this.carService.GetAllColours();
+            editCarFormModel.FuelTypes = this.carService.GetAllFuelTypes();
+            editCarFormModel.TransmissionTypes = this.carService.GetAllTransmissions();
+            editCarFormModel.Make = car.Make;
+            editCarFormModel.Model = car.Model;
+            editCarFormModel.Colour = car.Colour;
+            editCarFormModel.Year = car.Year;
+            editCarFormModel.Price = car.Price;
+            editCarFormModel.Fuel = car.Fuel;
+            editCarFormModel.Transmission = car.Transmission;
+
+            return View(editCarFormModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, EditCarFormModel editCarFormModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Edit(id);
+            }
+
+            this.carService.EditCar(id, editCarFormModel);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             CreateCarFormModel createCarFormModel = new CreateCarFormModel();

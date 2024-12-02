@@ -14,5 +14,6 @@ namespace CarsPlatform.Application.Contracts
         public CarViewModel? GetCarById(int id);
         public void DeleteCarById(int id);
         public void CreateCar(CreateCarFormModel createCarFormModel);
+        public void EditCar(int id, EditCarFormModel editCarFormModel);
     }
 }

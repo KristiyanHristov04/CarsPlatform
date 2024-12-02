@@ -209,5 +209,56 @@ namespace CarsPlatform.Infrastructure.Services
             this.context.Cars.Add(car);
             this.context.SaveChanges();
         }
+
+        public void EditCar(int id, EditCarFormModel editCarFormModel)
+        {
+            Car car = this.context.Cars.Find(id)!;
+
+            car.Make = this.context.Makes.FirstOrDefault(m => m.MakeName == editCarFormModel.Make)!;
+            if (car.Make == null)
+            {
+                Make make = new Make()
+                {
+                    MakeName = editCarFormModel.Make
+                };
+
+                this.context.Makes.Add(make);
+
+                car.Make = make;
+            }
+
+            car.Model = this.context.Models.FirstOrDefault(m => m.ModelName == editCarFormModel.Model)!;
+            if (car.Model == null)
+            {
+                Model model = new Model()
+                {
+                    ModelName = editCarFormModel.Model
+                };
+
+                this.context.Models.Add(model);
+
+                car.Model = model;
+            }
+
+            car.Colour = this.context.Colours.FirstOrDefault(m => m.ColourName == editCarFormModel.Colour)!;
+            if (car.Colour == null)
+            {
+                Colour colour = new Colour()
+                {
+                    ColourName = editCarFormModel.Colour
+                };
+
+                this.context.Colours.Add(colour);
+
+                car.Colour = colour;
+            }
+
+            car.ReleaseYear = editCarFormModel.Year;
+            car.Price = editCarFormModel.Price;
+            car.FuelType = this.context.FuelTypes.FirstOrDefault(m => m.FuelTypeName == editCarFormModel.Fuel)!;
+            car.Transmission = this.context.Transmissions.FirstOrDefault(m => m.TransmissionType == editCarFormModel.Transmission)!;
+
+            this.context.SaveChanges();
+        }
     }
 }
