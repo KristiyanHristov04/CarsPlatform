@@ -2,6 +2,7 @@
 using CarsPlatform.Core.Entities;
 using CarsPlatform.Application.Models.ViewModels;
 using CarsPlatform.Infrastructure.Data;
+using CarsPlatform.Application.Models.FormModels;
 
 namespace CarsPlatform.Infrastructure.Services
 {
@@ -154,6 +155,58 @@ namespace CarsPlatform.Infrastructure.Services
         {
             Car carToRemove = this.context.Cars.Find(id)!;
             this.context.Cars.Remove(carToRemove);
+            this.context.SaveChanges();
+        }
+
+        public void CreateCar(CreateCarFormModel createCarFormModel)
+        {
+            Car car = new Car();
+
+            car.Make = this.context.Makes.FirstOrDefault(m => m.MakeName == createCarFormModel.Make)!;
+            if (car.Make == null)
+            {
+                Make make = new Make()
+                {
+                    MakeName = createCarFormModel.Make
+                };
+
+                this.context.Makes.Add(make);
+
+                car.Make = make;
+            }
+
+            car.Model = this.context.Models.FirstOrDefault(m => m.ModelName == createCarFormModel.Model)!;
+            if (car.Model == null)
+            {
+                Model model = new Model()
+                {
+                    ModelName = createCarFormModel.Model
+                };
+
+                this.context.Models.Add(model);
+
+                car.Model = model;
+            }
+
+            car.Colour = this.context.Colours.FirstOrDefault(m => m.ColourName == createCarFormModel.Colour)!;
+            if (car.Colour == null)
+            {
+                Colour colour = new Colour()
+                {
+                    ColourName = createCarFormModel.Colour
+                };
+
+                this.context.Colours.Add(colour);
+
+                car.Colour = colour;
+            }
+
+            car.ReleaseYear = createCarFormModel.Year;
+            car.Price = createCarFormModel.Price;
+            car.FuelType = this.context.FuelTypes.FirstOrDefault(m => m.FuelTypeName == createCarFormModel.Fuel)!;
+            car.Transmission = this.context.Transmissions.FirstOrDefault(m => m.TransmissionType == createCarFormModel.Transmission)!;
+
+            this.context.Cars.Add(car);
             this.context.SaveChanges();
         }
     }

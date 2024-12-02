@@ -1,0 +1,115 @@
+﻿@using CarsPlatform.Application.Models.FormModels
+@model CreateCarFormModel
+
+@{
+    ViewData["Title"] = "Create Car";
+}
+
+<h1 class="text-center">Create Car</h1>
+<div class="container-fluid">
+    <form asp-asp-controller="Cars" asp-action="Create">
+        <div class="mb-3">
+            <label asp-for="@Model.Make"></label>
+            <select asp-for="@Model.Make" class="form-select" id="select-make-menu">
+                @foreach (string make in Model.Makes)
+                {
+                    <option value="@make">@make</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.Make"></span>
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="missing-make">
+                <label class="form-check-label" for="missing-make">
+                    Can't find my make
+                </label>
+            </div>
+        </div>
+        <div class="mb-3 d-none">
+            <label asp-for="@Model.Make" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Make" id="make-input" placeholder="Example: Mitsubishi">
+            <span class="text-danger" asp-validation-for="@Model.Make"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Model"></label>
+            <select asp-for="@Model.Model" class="form-select" id="select-model-menu">
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.Model"></span>
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="missing-model">
+                <label class="form-check-label" for="missing-model">
+                    Can't find my model
+                </label>
+            </div>
+        </div>
+        <div class="mb-3 d-none">
+            <label asp-for="@Model.Model" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Model" id="model-input" placeholder="Example: GTR">
+            <span class="text-danger" asp-validation-for="@Model.Model"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Colour"></label>
+            <select asp-for="@Model.Colour" class="form-select" id="select-colour-menu">
+                @foreach (string colour in Model.Colours)
+                {
+                    <option value="@colour">@colour</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.Colour"></span>
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="missing-colour">
+                <label class="form-check-label" for="missing-colour">
+                    Can't find my colour
+                </label>
+            </div>
+        </div>
+        <div class="mb-3 d-none">
+            <label asp-for="@Model.Colour" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Colour" id="colour-input" placeholder="Example: Violet">
+            <span class="text-danger" asp-validation-for="@Model.Colour"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Year" class="form-label"></label>
+            <input type="number" class="form-control" asp-for="@Model.Year">
+            <span class="text-danger" asp-validation-for="@Model.Year"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Price" class="form-label"></label>
+            <input type="number" class="form-control" asp-for="@Model.Price">
+            <span class="text-danger" asp-validation-for="@Model.Price"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Fuel"></label>
+            <select asp-for="@Model.Fuel" class="form-select">
+                @foreach (string fuelType in Model.FuelTypes)
+                {
+                    <option value="@fuelType">@fuelType</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.Fuel"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Transmission"></label>
+            <select asp-for="@Model.Transmission" class="form-select">
+                @foreach (string transmittionType in Model.TransmissionTypes)
+                {
+                    <option value="@transmittionType">@transmittionType</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.Transmission"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-asp-controller="Cars" asp-action="Index" class="btn btn-secondary">Go Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    @* <partial name="_ValidationScriptsPartial" /> *@
+    <script src="~/js/fillModelsMenu.js"></script>
+    <script src="~/js/form.js"></script>
+}

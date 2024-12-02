@@ -1,4 +1,5 @@
-﻿using CarsPlatform.Application.Models.ViewModels;
+﻿using CarsPlatform.Application.Models.FormModels;
+using CarsPlatform.Application.Models.ViewModels;
 
 namespace CarsPlatform.Application.Contracts
 {
@@ -12,5 +13,6 @@ namespace CarsPlatform.Application.Contracts
         public List<string> GetAllTransmissions();
         public CarViewModel? GetCarById(int id);
         public void DeleteCarById(int id);
+        public void CreateCar(CreateCarFormModel createCarFormModel);
     }
 }

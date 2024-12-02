@@ -1,4 +1,5 @@
 ﻿using CarsPlatform.Application.Contracts;
+using CarsPlatform.Application.Models.FormModels;
 using CarsPlatform.Application.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,30 @@ namespace CarsPlatform.Web.Controllers
             carPageViewModel.FuelTypes = this.carService.GetAllFuelTypes();
             carPageViewModel.Transmissions = this.carService.GetAllTransmissions();
             return View(carPageViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            CreateCarFormModel createCarFormModel = new CreateCarFormModel();
+            createCarFormModel.Makes = this.carService.GetAllMakes();
+            createCarFormModel.Colours = this.carService.GetAllColours();
+            createCarFormModel.FuelTypes = this.carService.GetAllFuelTypes();
+            createCarFormModel.TransmissionTypes = this.carService.GetAllTransmissions();
+            return View(createCarFormModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateCarFormModel createCarFormModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Create();
+            }
+
+            this.carService.CreateCar(createCarFormModel);
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
