@@ -13,7 +13,7 @@
         public string? FuelType { get; set; }
         public List<string> Transmissions { get; set; } = new List<string>();
         public string? Transmission { get; set; }
-        public int CarsPerPage { get; } = 10;
+        public int CarsPerPage { get; set; } = 10;
         public int TotalCars { get; set; }
         public int CurrentPage { get; set; } = 1;
         public List<CarViewModel> Cars { get; set; } = new List<CarViewModel>();

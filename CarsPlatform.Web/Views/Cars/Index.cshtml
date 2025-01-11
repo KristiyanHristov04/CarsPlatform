@@ -76,6 +76,15 @@
                 </select>
             </div>
 
+            <div class="input-container col-md-3">
+                <label>Cars Per Page:</label>
+                <select asp-for="@Model.CarsPerPage" class="form-select">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+
             <div class="col-md-3 align-self-end">
                 <button type="submit" class="btn btn-success">Search <i class="fa-solid fa-magnifying-glass"></i></button>
                 <a asp-controller="Cars" asp-action="Index" class="btn btn-primary">Clear <i class="fa-solid fa-broom"></i></a>
@@ -140,6 +149,7 @@
                asp-route-fuelType="@Model.FuelType"
                asp-route-transmission="@Model.Transmission"
                asp-route-currentPage="1"
+               asp-route-carsPerPage="@Model.CarsPerPage"
                class="btn btn-primary">
                 &lt;&lt;
             </a>
@@ -154,6 +164,7 @@
                asp-route-fuelType="@Model.FuelType"
                asp-route-transmission="@Model.Transmission"
                asp-route-currentPage="@(Model.CurrentPage == 1 ? Model.CurrentPage : Model.CurrentPage - 1)"
+               asp-route-carsPerPage="@Model.CarsPerPage"
                class="btn btn-primary">
                 &lt;
             </a>
@@ -174,6 +185,7 @@
                asp-route-fuelType="@Model.FuelType"
                asp-route-transmission="@Model.Transmission"
                asp-route-currentPage="@(Model.CurrentPage + 1 > lastPage ? Model.CurrentPage : Model.CurrentPage + 1)"
+               asp-route-carsPerPage="@Model.CarsPerPage"
                class="btn btn-primary">
                 &gt;
             </a>
@@ -188,6 +200,7 @@
                asp-route-fuelType="@Model.FuelType"
                asp-route-transmission="@Model.Transmission"
                asp-route-currentPage="@(lastPage != 0 ? lastPage : 1)"
+               asp-route-carsPerPage="@Model.CarsPerPage"
                class="btn btn-primary">
                 &gt; &gt;
             </a>
